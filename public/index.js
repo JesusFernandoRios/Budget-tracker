@@ -1,6 +1,16 @@
 let transactions = [];
 let myChart;
 
+// implementing indexedDB
+
+let request = indexedDB.open("budget", 1);
+
+request.onsuccess = event => {
+
+  console.log(event);
+  console.log(request.result)
+}
+
 fetch("/api/transaction")
   .then(response => {
     return response.json();
