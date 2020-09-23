@@ -3,36 +3,12 @@
 let transactions = [];
 let myChart;
 
-function saveRecord(data){
+function saveRecord(data) {
+  const transaction= db.transaction(['budget'], 'readwrite');
+  const budgetStore= transaction.objectStore('budget');
+  const getRequest =  budgetStore.getAll();
+};
 
-  console.log(data)
-
-  let request = indexedDB.open("budget", 1);
-
-  //create the database or upgrade the database
-  request.onupgradeneeded = ({target}) => {
-  
-  const db = target.result;
-  const objectStore = db.createObjectStore("transactions", {keyPath: "listID"});
-  objectStore.createIndex("nameIndex","name");
-  objectStore.createIndex("valueIndex","value")
-  }
-
-  request.onsuccess = event => {
-
-    console.log(event);
-    console.log(request.result)
-
-    const db = request.result;
-    const transaction = db.transaction(["transactions"],"readwrite");
-    const objectStore = transaction.objectStore("transactions");
-    const nameIndex = objectStore.index("nameIndex");
-
-    // Add Data
-    objectStore.add({name: event.name});
-    objectStore.add({name: event.value})
-  }
-}
   
 
 fetch("/api/transaction")
