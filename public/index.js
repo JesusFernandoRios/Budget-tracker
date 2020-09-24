@@ -2,13 +2,6 @@
 
 let transactions = [];
 let myChart;
-
-function saveRecord(data) {
-  const transaction= db.transaction(['budget'], 'readwrite');
-  const budgetStore= transaction.objectStore('budget');
-  const getRequest =  budgetStore.getAll();
-};
-
   
 
 fetch("/api/transaction")
